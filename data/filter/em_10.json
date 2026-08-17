@@ -1,0 +1,384 @@
+{
+    "childs": [
+        {
+            "childs": [
+                {
+                    "childs": [
+                        {
+                            "childs": [
+                                {
+                                    "childs": [
+                                        {
+                                            "childs": [
+                                                {
+                                                    "childs": [
+                                                        {
+                                                            "childs": [
+                                                                {
+                                                                    "childs": [
+                                                                        {
+                                                                            "childs": [
+                                                                                {
+                                                                                    "childs": null,
+                                                                                    "name": "Jaw"
+                                                                                }
+                                                                            ],
+                                                                            "name": "Jaw_sub"
+                                                                        },
+                                                                        {
+                                                                            "childs": null,
+                                                                            "name": "L_Antennae"
+                                                                        },
+                                                                        {
+                                                                            "childs": null,
+                                                                            "name": "R_Antennae"
+                                                                        }
+                                                                    ],
+                                                                    "name": "Head"
+                                                                }
+                                                            ],
+                                                            "name": "Neck2"
+                                                        }
+                                                    ],
+                                                    "name": "Neck1"
+                                                }
+                                            ],
+                                            "name": "Neck0"
+                                        },
+                                        {
+                                            "childs": [
+                                                {
+                                                    "childs": [
+                                                        {
+                                                            "childs": [
+                                                                {
+                                                                    "childs": [
+                                                                        {
+                                                                            "childs": [
+                                                                                {
+                                                                                    "childs": [
+                                                                                        {
+                                                                                            "childs": [
+                                                                                                {
+                                                                                                    "childs": [
+                                                                                                        {
+                                                                                                            "childs": null,
+                                                                                                            "name": "L_ThumbH2"
+                                                                                                        }
+                                                                                                    ],
+                                                                                                    "name": "L_ThumbH1"
+                                                                                                }
+                                                                                            ],
+                                                                                            "name": "L_ThumbH0"
+                                                                                        },
+                                                                                        {
+                                                                                            "childs": [
+                                                                                                {
+                                                                                                    "childs": [
+                                                                                                        {
+                                                                                                            "childs": null,
+                                                                                                            "name": "L_IndexH2"
+                                                                                                        }
+                                                                                                    ],
+                                                                                                    "name": "L_IndexH1"
+                                                                                                }
+                                                                                            ],
+                                                                                            "name": "L_IndexH0"
+                                                                                        }
+                                                                                    ],
+                                                                                    "name": "L_Hand1"
+                                                                                }
+                                                                            ],
+                                                                            "name": "L_Hand0"
+                                                                        }
+                                                                    ],
+                                                                    "name": "L_ArmL0"
+                                                                }
+                                                            ],
+                                                            "name": "L_ArmU1"
+                                                        }
+                                                    ],
+                                                    "name": "L_ArmU0"
+                                                }
+                                            ],
+                                            "name": "L_Scapula"
+                                        },
+                                        {
+                                            "childs": [
+                                                {
+                                                    "childs": [
+                                                        {
+                                                            "childs": [
+                                                                {
+                                                                    "childs": [
+                                                                        {
+                                                                            "childs": [
+                                                                                {
+                                                                                    "childs": [
+                                                                                        {
+                                                                                            "childs": [
+                                                                                                {
+                                                                                                    "childs": [
+                                                                                                        {
+                                                                                                            "childs": null,
+                                                                                                            "name": "R_ThumbH2"
+                                                                                                        }
+                                                                                                    ],
+                                                                                                    "name": "R_ThumbH1"
+                                                                                                }
+                                                                                            ],
+                                                                                            "name": "R_ThumbH0"
+                                                                                        },
+                                                                                        {
+                                                                                            "childs": [
+                                                                                                {
+                                                                                                    "childs": [
+                                                                                                        {
+                                                                                                            "childs": null,
+                                                                                                            "name": "R_IndexH2"
+                                                                                                        }
+                                                                                                    ],
+                                                                                                    "name": "R_IndexH1"
+                                                                                                }
+                                                                                            ],
+                                                                                            "name": "R_IndexH0"
+                                                                                        }
+                                                                                    ],
+                                                                                    "name": "R_Hand1"
+                                                                                }
+                                                                            ],
+                                                                            "name": "R_Hand0"
+                                                                        }
+                                                                    ],
+                                                                    "name": "R_ArmL0"
+                                                                }
+                                                            ],
+                                                            "name": "R_ArmU1"
+                                                        }
+                                                    ],
+                                                    "name": "R_ArmU0"
+                                                }
+                                            ],
+                                            "name": "R_Scapula"
+                                        },
+                                        {
+                                            "childs": [
+                                                {
+                                                    "childs": [
+                                                        {
+                                                            "childs": [
+                                                                {
+                                                                    "childs": [
+                                                                        {
+                                                                            "childs": [
+                                                                                {
+                                                                                    "childs": [
+                                                                                        {
+                                                                                            "childs": [
+                                                                                                {
+                                                                                                    "childs": null,
+                                                                                                    "name": "L_IndexW1"
+                                                                                                }
+                                                                                            ],
+                                                                                            "name": "L_IndexW0"
+                                                                                        }
+                                                                                    ],
+                                                                                    "name": "L_HandW1"
+                                                                                },
+                                                                                {
+                                                                                    "childs": [
+                                                                                        {
+                                                                                            "childs": null,
+                                                                                            "name": "L_ThumbW1"
+                                                                                        }
+                                                                                    ],
+                                                                                    "name": "L_ThumbW0"
+                                                                                }
+                                                                            ],
+                                                                            "name": "L_HandW0"
+                                                                        }
+                                                                    ],
+                                                                    "name": "L_WingL0"
+                                                                }
+                                                            ],
+                                                            "name": "L_WingU1"
+                                                        }
+                                                    ],
+                                                    "name": "L_WingU0"
+                                                }
+                                            ],
+                                            "name": "L_ScapulaW"
+                                        },
+                                        {
+                                            "childs": [
+                                                {
+                                                    "childs": [
+                                                        {
+                                                            "childs": [
+                                                                {
+                                                                    "childs": [
+                                                                        {
+                                                                            "childs": [
+                                                                                {
+                                                                                    "childs": [
+                                                                                        {
+                                                                                            "childs": [
+                                                                                                {
+                                                                                                    "childs": null,
+                                                                                                    "name": "R_IndexW1"
+                                                                                                }
+                                                                                            ],
+                                                                                            "name": "R_IndexW0"
+                                                                                        }
+                                                                                    ],
+                                                                                    "name": "R_HandW1"
+                                                                                },
+                                                                                {
+                                                                                    "childs": [
+                                                                                        {
+                                                                                            "childs": null,
+                                                                                            "name": "R_ThumbW1"
+                                                                                        }
+                                                                                    ],
+                                                                                    "name": "R_ThumbW0"
+                                                                                }
+                                                                            ],
+                                                                            "name": "R_HandW0"
+                                                                        }
+                                                                    ],
+                                                                    "name": "R_WingL0"
+                                                                }
+                                                            ],
+                                                            "name": "R_WingU1"
+                                                        }
+                                                    ],
+                                                    "name": "R_WingU0"
+                                                }
+                                            ],
+                                            "name": "R_ScapulaW"
+                                        }
+                                    ],
+                                    "name": "Chest"
+                                }
+                            ],
+                            "name": "Spine1"
+                        }
+                    ],
+                    "name": "Spine0"
+                },
+                {
+                    "childs": [
+                        {
+                            "childs": [
+                                {
+                                    "childs": [
+                                        {
+                                            "childs": [
+                                                {
+                                                    "childs": [
+                                                        {
+                                                            "childs": [
+                                                                {
+                                                                    "childs": [
+                                                                        {
+                                                                            "childs": null,
+                                                                            "name": "L_IndexF1"
+                                                                        }
+                                                                    ],
+                                                                    "name": "L_IndexF0"
+                                                                },
+                                                                {
+                                                                    "childs": [
+                                                                        {
+                                                                            "childs": null,
+                                                                            "name": "L_MiddleF1"
+                                                                        }
+                                                                    ],
+                                                                    "name": "L_MiddleF0"
+                                                                }
+                                                            ],
+                                                            "name": "L_Foot1"
+                                                        }
+                                                    ],
+                                                    "name": "L_Foot0"
+                                                }
+                                            ],
+                                            "name": "L_LegL1"
+                                        }
+                                    ],
+                                    "name": "L_LegL0"
+                                }
+                            ],
+                            "name": "L_LegU1"
+                        }
+                    ],
+                    "name": "L_LegU0"
+                },
+                {
+                    "childs": [
+                        {
+                            "childs": [
+                                {
+                                    "childs": [
+                                        {
+                                            "childs": [
+                                                {
+                                                    "childs": [
+                                                        {
+                                                            "childs": [
+                                                                {
+                                                                    "childs": [
+                                                                        {
+                                                                            "childs": null,
+                                                                            "name": "R_IndexF1"
+                                                                        }
+                                                                    ],
+                                                                    "name": "R_IndexF0"
+                                                                },
+                                                                {
+                                                                    "childs": [
+                                                                        {
+                                                                            "childs": null,
+                                                                            "name": "R_MiddleF1"
+                                                                        }
+                                                                    ],
+                                                                    "name": "R_MiddleF0"
+                                                                }
+                                                            ],
+                                                            "name": "R_Foot1"
+                                                        }
+                                                    ],
+                                                    "name": "R_Foot0"
+                                                }
+                                            ],
+                                            "name": "R_LegL1"
+                                        }
+                                    ],
+                                    "name": "R_LegL0"
+                                }
+                            ],
+                            "name": "R_LegU1"
+                        }
+                    ],
+                    "name": "R_LegU0"
+                },
+                {
+                    "childs": [
+                        {
+                            "childs": [
+                                {
+                                    "childs": null,
+                                    "name": "Tail2"
+                                }
+                            ],
+                            "name": "Tail1"
+                        }
+                    ],
+                    "name": "Tail0"
+                }
+            ],
+            "name": "Hip"
+        }
+    ],
+    "name": "root"
+}

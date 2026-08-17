@@ -1,0 +1,367 @@
+{
+    "childs": [
+        {
+            "childs": [
+                {
+                    "childs": [
+                        {
+                            "childs": [
+                                {
+                                    "childs": [
+                                        {
+                                            "childs": [
+                                                {
+                                                    "childs": [
+                                                        {
+                                                            "childs": [
+                                                                {
+                                                                    "childs": [
+                                                                        {
+                                                                            "childs": [
+                                                                                {
+                                                                                    "childs": [
+                                                                                        {
+                                                                                            "childs": [
+                                                                                                {
+                                                                                                    "childs": [
+                                                                                                        {
+                                                                                                            "childs": null,
+                                                                                                            "name": "Belly9"
+                                                                                                        }
+                                                                                                    ],
+                                                                                                    "name": "Belly8"
+                                                                                                }
+                                                                                            ],
+                                                                                            "name": "Belly7"
+                                                                                        }
+                                                                                    ],
+                                                                                    "name": "Belly6"
+                                                                                }
+                                                                            ],
+                                                                            "name": "Belly5"
+                                                                        }
+                                                                    ],
+                                                                    "name": "Belly4"
+                                                                },
+                                                                {
+                                                                    "childs": [
+                                                                        {
+                                                                            "childs": [
+                                                                                {
+                                                                                    "childs": null,
+                                                                                    "name": "Funnel2"
+                                                                                }
+                                                                            ],
+                                                                            "name": "Funnel1"
+                                                                        }
+                                                                    ],
+                                                                    "name": "Funnel0"
+                                                                }
+                                                            ],
+                                                            "name": "Belly3"
+                                                        }
+                                                    ],
+                                                    "name": "Belly2"
+                                                }
+                                            ],
+                                            "name": "Belly1"
+                                        }
+                                    ],
+                                    "name": "Belly0"
+                                }
+                            ],
+                            "name": "Head"
+                        }
+                    ],
+                    "name": "Spine0"
+                },
+                {
+                    "childs": [
+                        {
+                            "childs": [
+                                {
+                                    "childs": [
+                                        {
+                                            "childs": [
+                                                {
+                                                    "childs": [
+                                                        {
+                                                            "childs": [
+                                                                {
+                                                                    "childs": [
+                                                                        {
+                                                                            "childs": null,
+                                                                            "name": "L_Arm7"
+                                                                        }
+                                                                    ],
+                                                                    "name": "L_Arm6"
+                                                                }
+                                                            ],
+                                                            "name": "L_Arm5"
+                                                        }
+                                                    ],
+                                                    "name": "L_Arm4"
+                                                }
+                                            ],
+                                            "name": "L_Arm3"
+                                        }
+                                    ],
+                                    "name": "L_Arm2"
+                                }
+                            ],
+                            "name": "L_Arm1"
+                        }
+                    ],
+                    "name": "L_Arm0"
+                },
+                {
+                    "childs": [
+                        {
+                            "childs": [
+                                {
+                                    "childs": [
+                                        {
+                                            "childs": [
+                                                {
+                                                    "childs": [
+                                                        {
+                                                            "childs": [
+                                                                {
+                                                                    "childs": [
+                                                                        {
+                                                                            "childs": null,
+                                                                            "name": "R_Arm7"
+                                                                        }
+                                                                    ],
+                                                                    "name": "R_Arm6"
+                                                                }
+                                                            ],
+                                                            "name": "R_Arm5"
+                                                        }
+                                                    ],
+                                                    "name": "R_Arm4"
+                                                }
+                                            ],
+                                            "name": "R_Arm3"
+                                        }
+                                    ],
+                                    "name": "R_Arm2"
+                                }
+                            ],
+                            "name": "R_Arm1"
+                        }
+                    ],
+                    "name": "R_Arm0"
+                },
+                {
+                    "childs": [
+                        {
+                            "childs": [
+                                {
+                                    "childs": [
+                                        {
+                                            "childs": [
+                                                {
+                                                    "childs": [
+                                                        {
+                                                            "childs": null,
+                                                            "name": "L_Multi0_Leg10"
+                                                        }
+                                                    ],
+                                                    "name": "L_Multi0_Leg9"
+                                                }
+                                            ],
+                                            "name": "L_Multi0_Leg8"
+                                        }
+                                    ],
+                                    "name": "L_Multi0_Leg7"
+                                },
+                                {
+                                    "childs": null,
+                                    "name": "L_Multi0_Leg_end"
+                                }
+                            ],
+                            "name": "L_Multi0_Leg0"
+                        }
+                    ],
+                    "name": "L_Multi0_Leg0_Offset"
+                },
+                {
+                    "childs": [
+                        {
+                            "childs": null,
+                            "name": "L_Multi1_Leg0_Mouth"
+                        },
+                        {
+                            "childs": [
+                                {
+                                    "childs": [
+                                        {
+                                            "childs": [
+                                                {
+                                                    "childs": [
+                                                        {
+                                                            "childs": null,
+                                                            "name": "L_Multi1_Leg10"
+                                                        }
+                                                    ],
+                                                    "name": "L_Multi1_Leg9"
+                                                }
+                                            ],
+                                            "name": "L_Multi1_Leg8"
+                                        }
+                                    ],
+                                    "name": "L_Multi1_Leg7"
+                                },
+                                {
+                                    "childs": null,
+                                    "name": "L_Multi1_Leg_end"
+                                }
+                            ],
+                            "name": "L_Multi1_Leg0"
+                        }
+                    ],
+                    "name": "L_Multi1_Leg0_Offset"
+                },
+                {
+                    "childs": [
+                        {
+                            "childs": [
+                                {
+                                    "childs": [
+                                        {
+                                            "childs": [
+                                                {
+                                                    "childs": [
+                                                        {
+                                                            "childs": null,
+                                                            "name": "L_Multi2_Leg10"
+                                                        }
+                                                    ],
+                                                    "name": "L_Multi2_Leg9"
+                                                }
+                                            ],
+                                            "name": "L_Multi2_Leg8"
+                                        }
+                                    ],
+                                    "name": "L_Multi2_Leg7"
+                                },
+                                {
+                                    "childs": null,
+                                    "name": "L_Multi2_Leg_end"
+                                }
+                            ],
+                            "name": "L_Multi2_Leg0"
+                        }
+                    ],
+                    "name": "L_Multi2_Leg0_Offset"
+                },
+                {
+                    "childs": [
+                        {
+                            "childs": [
+                                {
+                                    "childs": [
+                                        {
+                                            "childs": [
+                                                {
+                                                    "childs": [
+                                                        {
+                                                            "childs": null,
+                                                            "name": "R_Multi0_Leg10"
+                                                        }
+                                                    ],
+                                                    "name": "R_Multi0_Leg9"
+                                                }
+                                            ],
+                                            "name": "R_Multi0_Leg8"
+                                        }
+                                    ],
+                                    "name": "R_Multi0_Leg7"
+                                },
+                                {
+                                    "childs": null,
+                                    "name": "R_Multi0_Leg_end"
+                                }
+                            ],
+                            "name": "R_Multi0_Leg0"
+                        }
+                    ],
+                    "name": "R_Multi0_Leg0_Offset"
+                },
+                {
+                    "childs": [
+                        {
+                            "childs": null,
+                            "name": "R_Multi1_Leg0_Mouth"
+                        },
+                        {
+                            "childs": [
+                                {
+                                    "childs": [
+                                        {
+                                            "childs": [
+                                                {
+                                                    "childs": [
+                                                        {
+                                                            "childs": null,
+                                                            "name": "R_Multi1_Leg10"
+                                                        }
+                                                    ],
+                                                    "name": "R_Multi1_Leg9"
+                                                }
+                                            ],
+                                            "name": "R_Multi1_Leg8"
+                                        }
+                                    ],
+                                    "name": "R_Multi1_Leg7"
+                                },
+                                {
+                                    "childs": null,
+                                    "name": "R_Multi1_Leg_end"
+                                }
+                            ],
+                            "name": "R_Multi1_Leg0"
+                        }
+                    ],
+                    "name": "R_Multi1_Leg0_Offset"
+                },
+                {
+                    "childs": [
+                        {
+                            "childs": [
+                                {
+                                    "childs": [
+                                        {
+                                            "childs": [
+                                                {
+                                                    "childs": [
+                                                        {
+                                                            "childs": null,
+                                                            "name": "R_Multi2_Leg10"
+                                                        }
+                                                    ],
+                                                    "name": "R_Multi2_Leg9"
+                                                }
+                                            ],
+                                            "name": "R_Multi2_Leg8"
+                                        }
+                                    ],
+                                    "name": "R_Multi2_Leg7"
+                                },
+                                {
+                                    "childs": null,
+                                    "name": "R_Multi2_Leg_end"
+                                }
+                            ],
+                            "name": "R_Multi2_Leg0"
+                        }
+                    ],
+                    "name": "R_Multi2_Leg0_Offset"
+                }
+            ],
+            "name": "Hip"
+        }
+    ],
+    "name": "root"
+}

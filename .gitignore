@@ -1,0 +1,10 @@
+# Weights are fetched, not vendored: see fetch_weights.sh and fetch_base_model.sh
+weights/
+
+# Generated output
+samples/
+samples_out/
+demos/out/
+
+__pycache__/
+*.pyc

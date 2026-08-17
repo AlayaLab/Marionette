@@ -1,0 +1,14 @@
+{
+    "childs": [
+        {
+            "childs": [
+                {
+                    "childs": null,
+                    "name": "VFX_Attack"
+                }
+            ],
+            "name": "Base"
+        }
+    ],
+    "name": "root"
+}

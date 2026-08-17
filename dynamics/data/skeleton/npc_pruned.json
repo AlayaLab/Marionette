@@ -1,0 +1,154 @@
+{
+    "childs": [
+        {
+            "childs": [
+                {
+                    "childs": [
+                        {
+                            "childs": [
+                                {
+                                    "childs": [
+                                        {
+                                            "childs": [
+                                                {
+                                                    "childs": [
+                                                        {
+                                                            "childs": [
+                                                                {
+                                                                    "childs": null,
+                                                                    "name": "R_Eye"
+                                                                },
+                                                                {
+                                                                    "childs": null,
+                                                                    "name": "L_Eye"
+                                                                }
+                                                            ],
+                                                            "name": "Head"
+                                                        }
+                                                    ],
+                                                    "name": "Neck_1"
+                                                }
+                                            ],
+                                            "name": "Neck_0"
+                                        },
+                                        {
+                                            "childs": [
+                                                {
+                                                    "childs": [
+                                                        {
+                                                            "childs": [
+                                                                {
+                                                                    "childs": [
+                                                                        {
+                                                                            "childs": null,
+                                                                            "name": "L_Palm"
+                                                                        }
+                                                                    ],
+                                                                    "name": "L_Hand"
+                                                                }
+                                                            ],
+                                                            "name": "L_Forearm"
+                                                        }
+                                                    ],
+                                                    "name": "L_UpperArm"
+                                                }
+                                            ],
+                                            "name": "L_Shoulder"
+                                        },
+                                        {
+                                            "childs": [
+                                                {
+                                                    "childs": [
+                                                        {
+                                                            "childs": [
+                                                                {
+                                                                    "childs": [
+                                                                        {
+                                                                            "childs": null,
+                                                                            "name": "R_Palm"
+                                                                        }
+                                                                    ],
+                                                                    "name": "R_Hand"
+                                                                }
+                                                            ],
+                                                            "name": "R_Forearm"
+                                                        }
+                                                    ],
+                                                    "name": "R_UpperArm"
+                                                }
+                                            ],
+                                            "name": "R_Shoulder"
+                                        }
+                                    ],
+                                    "name": "Spine_2"
+                                }
+                            ],
+                            "name": "Spine_1"
+                        }
+                    ],
+                    "name": "Spine_0"
+                },
+                {
+                    "childs": [
+                        {
+                            "childs": [
+                                {
+                                    "childs": [
+                                        {
+                                            "childs": [
+                                                {
+                                                    "childs": [
+                                                        {
+                                                            "childs": null,
+                                                            "name": "L_Toe"
+                                                        }
+                                                    ],
+                                                    "name": "L_Instep"
+                                                }
+                                            ],
+                                            "name": "L_Foot"
+                                        }
+                                    ],
+                                    "name": "L_Shin"
+                                }
+                            ],
+                            "name": "L_Knee"
+                        }
+                    ],
+                    "name": "L_Thigh"
+                },
+                {
+                    "childs": [
+                        {
+                            "childs": [
+                                {
+                                    "childs": [
+                                        {
+                                            "childs": [
+                                                {
+                                                    "childs": [
+                                                        {
+                                                            "childs": null,
+                                                            "name": "R_Toe"
+                                                        }
+                                                    ],
+                                                    "name": "R_Instep"
+                                                }
+                                            ],
+                                            "name": "R_Foot"
+                                        }
+                                    ],
+                                    "name": "R_Shin"
+                                }
+                            ],
+                            "name": "R_Knee"
+                        }
+                    ],
+                    "name": "R_Thigh"
+                }
+            ],
+            "name": "Hip"
+        }
+    ],
+    "name": "root"
+}

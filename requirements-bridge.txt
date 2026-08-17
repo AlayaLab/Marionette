@@ -1,0 +1,12 @@
+# Bridge stage (stage 1): dynamics rollout and pose-control rasterisation.
+#
+# Kept separate because the two stages cannot share one environment: this one needs
+# moderngl on an EGL context under python3.12, and decord — required by the observation
+# stage — does not build for that interpreter. See README, "Two environments".
+torch>=2.8
+numpy
+moderngl
+imageio
+imageio-ffmpeg
+Pillow
+tqdm

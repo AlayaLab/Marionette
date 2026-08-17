@@ -1,0 +1,317 @@
+{
+    "childs": [
+        {
+            "childs": [
+                {
+                    "childs": [
+                        {
+                            "childs": [
+                                {
+                                    "childs": [
+                                        {
+                                            "childs": [
+                                                {
+                                                    "childs": [
+                                                        {
+                                                            "childs": [
+                                                                {
+                                                                    "childs": null,
+                                                                    "name": "L_Multi0_IndexF0"
+                                                                },
+                                                                {
+                                                                    "childs": null,
+                                                                    "name": "L_Multi0_MiddleF0"
+                                                                }
+                                                            ],
+                                                            "name": "L_Multi0_Leg5"
+                                                        }
+                                                    ],
+                                                    "name": "L_Multi0_Leg4"
+                                                }
+                                            ],
+                                            "name": "L_Multi0_Leg3"
+                                        }
+                                    ],
+                                    "name": "L_Multi0_Leg2"
+                                }
+                            ],
+                            "name": "L_Multi0_Leg1"
+                        }
+                    ],
+                    "name": "L_Multi0_Leg0"
+                },
+                {
+                    "childs": [
+                        {
+                            "childs": [
+                                {
+                                    "childs": [
+                                        {
+                                            "childs": [
+                                                {
+                                                    "childs": [
+                                                        {
+                                                            "childs": [
+                                                                {
+                                                                    "childs": null,
+                                                                    "name": "R_Multi0_IndexF0"
+                                                                },
+                                                                {
+                                                                    "childs": null,
+                                                                    "name": "R_Multi0_MiddleF0"
+                                                                }
+                                                            ],
+                                                            "name": "R_Multi0_Leg5"
+                                                        }
+                                                    ],
+                                                    "name": "R_Multi0_Leg4"
+                                                }
+                                            ],
+                                            "name": "R_Multi0_Leg3"
+                                        }
+                                    ],
+                                    "name": "R_Multi0_Leg2"
+                                }
+                            ],
+                            "name": "R_Multi0_Leg1"
+                        }
+                    ],
+                    "name": "R_Multi0_Leg0"
+                },
+                {
+                    "childs": [
+                        {
+                            "childs": [
+                                {
+                                    "childs": [
+                                        {
+                                            "childs": [
+                                                {
+                                                    "childs": [
+                                                        {
+                                                            "childs": [
+                                                                {
+                                                                    "childs": null,
+                                                                    "name": "L_Multi0_IndexF1"
+                                                                },
+                                                                {
+                                                                    "childs": null,
+                                                                    "name": "L_Multi0_MiddleF1"
+                                                                }
+                                                            ],
+                                                            "name": "L_Multi1_Leg5"
+                                                        }
+                                                    ],
+                                                    "name": "L_Multi1_Leg4"
+                                                }
+                                            ],
+                                            "name": "L_Multi1_Leg3"
+                                        }
+                                    ],
+                                    "name": "L_Multi1_Leg2"
+                                }
+                            ],
+                            "name": "L_Multi1_Leg1"
+                        }
+                    ],
+                    "name": "L_Multi1_Leg0"
+                },
+                {
+                    "childs": [
+                        {
+                            "childs": [
+                                {
+                                    "childs": [
+                                        {
+                                            "childs": [
+                                                {
+                                                    "childs": [
+                                                        {
+                                                            "childs": [
+                                                                {
+                                                                    "childs": null,
+                                                                    "name": "R_Multi0_IndexF1"
+                                                                },
+                                                                {
+                                                                    "childs": null,
+                                                                    "name": "R_Multi0_MiddleF1"
+                                                                }
+                                                            ],
+                                                            "name": "R_Multi1_Leg5"
+                                                        }
+                                                    ],
+                                                    "name": "R_Multi1_Leg4"
+                                                }
+                                            ],
+                                            "name": "R_Multi1_Leg3"
+                                        }
+                                    ],
+                                    "name": "R_Multi1_Leg2"
+                                }
+                            ],
+                            "name": "R_Multi1_Leg1"
+                        }
+                    ],
+                    "name": "R_Multi1_Leg0"
+                },
+                {
+                    "childs": [
+                        {
+                            "childs": [
+                                {
+                                    "childs": [
+                                        {
+                                            "childs": [
+                                                {
+                                                    "childs": [
+                                                        {
+                                                            "childs": [
+                                                                {
+                                                                    "childs": [
+                                                                        {
+                                                                            "childs": [
+                                                                                {
+                                                                                    "childs": null,
+                                                                                    "name": "L_IndexH1"
+                                                                                }
+                                                                            ],
+                                                                            "name": "L_IndexH0"
+                                                                        }
+                                                                    ],
+                                                                    "name": "L_Arm6"
+                                                                }
+                                                            ],
+                                                            "name": "L_Arm5"
+                                                        }
+                                                    ],
+                                                    "name": "L_Arm4"
+                                                }
+                                            ],
+                                            "name": "L_Arm3"
+                                        }
+                                    ],
+                                    "name": "L_Arm2"
+                                }
+                            ],
+                            "name": "L_Arm1"
+                        }
+                    ],
+                    "name": "L_Arm0"
+                },
+                {
+                    "childs": [
+                        {
+                            "childs": [
+                                {
+                                    "childs": [
+                                        {
+                                            "childs": [
+                                                {
+                                                    "childs": [
+                                                        {
+                                                            "childs": [
+                                                                {
+                                                                    "childs": [
+                                                                        {
+                                                                            "childs": [
+                                                                                {
+                                                                                    "childs": null,
+                                                                                    "name": "R_IndexH1"
+                                                                                }
+                                                                            ],
+                                                                            "name": "R_IndexH0"
+                                                                        }
+                                                                    ],
+                                                                    "name": "R_Arm6"
+                                                                }
+                                                            ],
+                                                            "name": "R_Arm5"
+                                                        }
+                                                    ],
+                                                    "name": "R_Arm4"
+                                                }
+                                            ],
+                                            "name": "R_Arm3"
+                                        }
+                                    ],
+                                    "name": "R_Arm2"
+                                }
+                            ],
+                            "name": "R_Arm1"
+                        }
+                    ],
+                    "name": "R_Arm0"
+                },
+                {
+                    "childs": [
+                        {
+                            "childs": [
+                                {
+                                    "childs": null,
+                                    "name": "Jaw"
+                                }
+                            ],
+                            "name": "Jaw_Offset"
+                        }
+                    ],
+                    "name": "Head"
+                },
+                {
+                    "childs": [
+                        {
+                            "childs": [
+                                {
+                                    "childs": [
+                                        {
+                                            "childs": [
+                                                {
+                                                    "childs": [
+                                                        {
+                                                            "childs": null,
+                                                            "name": "Tail5"
+                                                        }
+                                                    ],
+                                                    "name": "Tail4"
+                                                },
+                                                {
+                                                    "childs": [
+                                                        {
+                                                            "childs": [
+                                                                {
+                                                                    "childs": [
+                                                                        {
+                                                                            "childs": [
+                                                                                {
+                                                                                    "childs": null,
+                                                                                    "name": "TailSpear4"
+                                                                                }
+                                                                            ],
+                                                                            "name": "TailSpear3"
+                                                                        }
+                                                                    ],
+                                                                    "name": "TailSpear2"
+                                                                }
+                                                            ],
+                                                            "name": "TailSpear1"
+                                                        }
+                                                    ],
+                                                    "name": "TailSpear0"
+                                                }
+                                            ],
+                                            "name": "Tail3"
+                                        }
+                                    ],
+                                    "name": "Tail2"
+                                }
+                            ],
+                            "name": "Tail1"
+                        }
+                    ],
+                    "name": "Tail0"
+                }
+            ],
+            "name": "Hip"
+        }
+    ],
+    "name": "root"
+}

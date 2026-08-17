@@ -1,0 +1,227 @@
+{
+    "childs": [
+        {
+            "childs": [
+                {
+                    "childs": null,
+                    "name": "Grip"
+                },
+                {
+                    "childs": null,
+                    "name": "VFX_Attack"
+                },
+                {
+                    "childs": [
+                        {
+                            "childs": [
+                                {
+                                    "childs": [
+                                        {
+                                            "childs": null,
+                                            "name": "CH0_end"
+                                        }
+                                    ],
+                                    "name": "CH0_02"
+                                }
+                            ],
+                            "name": "CH0_01"
+                        }
+                    ],
+                    "name": "CH0_00"
+                },
+                {
+                    "childs": [
+                        {
+                            "childs": [
+                                {
+                                    "childs": [
+                                        {
+                                            "childs": null,
+                                            "name": "CH1_end"
+                                        }
+                                    ],
+                                    "name": "CH1_02"
+                                }
+                            ],
+                            "name": "CH1_01"
+                        }
+                    ],
+                    "name": "CH1_00"
+                },
+                {
+                    "childs": [
+                        {
+                            "childs": [
+                                {
+                                    "childs": [
+                                        {
+                                            "childs": null,
+                                            "name": "CH2_end"
+                                        }
+                                    ],
+                                    "name": "CH2_02"
+                                }
+                            ],
+                            "name": "CH2_01"
+                        }
+                    ],
+                    "name": "CH2_00"
+                },
+                {
+                    "childs": [
+                        {
+                            "childs": [
+                                {
+                                    "childs": [
+                                        {
+                                            "childs": null,
+                                            "name": "CH3_end"
+                                        }
+                                    ],
+                                    "name": "CH3_02"
+                                }
+                            ],
+                            "name": "CH3_01"
+                        }
+                    ],
+                    "name": "CH3_00"
+                },
+                {
+                    "childs": [
+                        {
+                            "childs": [
+                                {
+                                    "childs": [
+                                        {
+                                            "childs": null,
+                                            "name": "CH4_end"
+                                        }
+                                    ],
+                                    "name": "CH4_02"
+                                }
+                            ],
+                            "name": "CH4_01"
+                        }
+                    ],
+                    "name": "CH4_00"
+                },
+                {
+                    "childs": [
+                        {
+                            "childs": [
+                                {
+                                    "childs": [
+                                        {
+                                            "childs": null,
+                                            "name": "CH5_end"
+                                        }
+                                    ],
+                                    "name": "CH5_02"
+                                }
+                            ],
+                            "name": "CH5_01"
+                        }
+                    ],
+                    "name": "CH5_00"
+                },
+                {
+                    "childs": [
+                        {
+                            "childs": [
+                                {
+                                    "childs": [
+                                        {
+                                            "childs": null,
+                                            "name": "CH6_end"
+                                        }
+                                    ],
+                                    "name": "CH6_02"
+                                }
+                            ],
+                            "name": "CH6_01"
+                        }
+                    ],
+                    "name": "CH6_00"
+                },
+                {
+                    "childs": [
+                        {
+                            "childs": [
+                                {
+                                    "childs": [
+                                        {
+                                            "childs": null,
+                                            "name": "CH7_end"
+                                        }
+                                    ],
+                                    "name": "CH7_02"
+                                }
+                            ],
+                            "name": "CH7_01"
+                        }
+                    ],
+                    "name": "CH7_00"
+                },
+                {
+                    "childs": [
+                        {
+                            "childs": [
+                                {
+                                    "childs": [
+                                        {
+                                            "childs": null,
+                                            "name": "CH8_end"
+                                        }
+                                    ],
+                                    "name": "CH8_02"
+                                }
+                            ],
+                            "name": "CH8_01"
+                        }
+                    ],
+                    "name": "CH8_00"
+                },
+                {
+                    "childs": [
+                        {
+                            "childs": [
+                                {
+                                    "childs": [
+                                        {
+                                            "childs": null,
+                                            "name": "CH9_end"
+                                        }
+                                    ],
+                                    "name": "CH9_02"
+                                }
+                            ],
+                            "name": "CH9_01"
+                        }
+                    ],
+                    "name": "CH9_00"
+                },
+                {
+                    "childs": [
+                        {
+                            "childs": [
+                                {
+                                    "childs": [
+                                        {
+                                            "childs": null,
+                                            "name": "CH10_end"
+                                        }
+                                    ],
+                                    "name": "CH10_02"
+                                }
+                            ],
+                            "name": "CH10_01"
+                        }
+                    ],
+                    "name": "CH10_00"
+                }
+            ],
+            "name": "Base"
+        }
+    ],
+    "name": "root"
+}

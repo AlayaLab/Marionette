@@ -1,0 +1,31 @@
+{
+    "childs": [
+        {
+            "childs": [
+                {
+                    "childs": [
+                        {
+                            "childs": null,
+                            "name": "Sound_Rot"
+                        }
+                    ],
+                    "name": "Sound_Rot_P"
+                },
+                {
+                    "childs": null,
+                    "name": "VFX_Sound"
+                },
+                {
+                    "childs": null,
+                    "name": "HJ_Driven"
+                },
+                {
+                    "childs": null,
+                    "name": "HJ_0"
+                }
+            ],
+            "name": "Base"
+        }
+    ],
+    "name": "root"
+}

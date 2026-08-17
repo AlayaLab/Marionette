@@ -1,0 +1,56 @@
+Marionette
+Copyright 2026 Alaya Lab
+
+------------------------------------------------------------------------------
+Licensing summary
+------------------------------------------------------------------------------
+This project is released under two licences, because its code and its data-derived
+artifacts do not carry the same rights:
+
+  Code                          Apache License 2.0            (LICENSE)
+  Model weights and assets      research / non-commercial     (LICENSE.assets)
+
+The **code** is original work by Alaya Lab, plus a vendored subset of VideoX-Fun
+(Apache-2.0). Apache-2.0 is chosen for continuity with that upstream and with the
+base model, both of which are Apache-2.0, and because no strong-copyleft component
+is present.
+
+The **model weights and the runtime assets** (seed states, scanned terrain,
+appearance references, demo videos and stills) are derived from the WildWorld
+dataset, which Alaya Lab releases for non-commercial research use only and which
+does not permit redistribution of the underlying footage. Those terms flow through
+to anything derived from it, so the weights and assets in this project are released
+on the same basis. See LICENSE.assets.
+
+------------------------------------------------------------------------------
+Third-party components (details in THIRD_PARTY_LICENSES.md)
+------------------------------------------------------------------------------
+* VideoX-Fun (aigc-apps) — Apache-2.0. Vendored under observation/videox_fun/;
+  see observation/PROVENANCE.md for the upstream commit and the modifications made.
+* Wan2.2-Fun-5B-Control (Alibaba-PAI) — Apache-2.0. Base model: the transformer
+  our observation model is fine-tuned from, plus the VAE and text encoder loaded at
+  runtime. **Not redistributed here**; fetch_base_model.sh downloads it from the
+  original source so its licence and provenance stay attached to it.
+
+Third-party model weights are NOT redistributed by this project. Users obtain them
+from the original sources and accept those sources' licences.
+
+------------------------------------------------------------------------------
+Source material
+------------------------------------------------------------------------------
+The corpus behind this work is WildWorld, a research dataset recorded from a
+photorealistic AAA action role-playing game by the authors on retail copies, and
+released separately by Alaya Lab:
+
+    https://github.com/AlayaLab/WildWorld
+    https://huggingface.co/datasets/AlayaLab/WildWorld
+
+Rights in the underlying game content remain with its publisher. Nothing in this
+project grants any licence to that content.
+
+Two files shipped here ARE unmodified recorded gameplay video, not model output:
+data/first_frame_ref.mp4 and data/demo/aligned_ref.mp4. The observation model is
+conditioned on a reference frame and these supply it; they are short clips from the
+same recordings the corpus was built from, covered by LICENSE.assets. No game
+textures, models or audio are redistributed. The seed states and scanned terrain are
+numeric derivations produced by this work.

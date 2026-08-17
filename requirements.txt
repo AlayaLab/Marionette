@@ -1,0 +1,19 @@
+# Observation stage (stage 2): control-conditioned video diffusion.
+# Needs a CUDA build of torch matching your driver; install that first, from the
+# index appropriate to your CUDA version, then this file.
+torch>=2.8
+torchvision
+diffusers>=0.32
+transformers>=4.46
+accelerate>=1.0
+safetensors
+huggingface_hub>=0.26
+decord>=0.6
+einops
+omegaconf
+numpy
+opencv-python
+imageio
+imageio-ffmpeg
+Pillow
+tqdm

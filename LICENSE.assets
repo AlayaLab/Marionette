@@ -1,0 +1,43 @@
+Marionette — licence for model weights and runtime assets
+Copyright 2026 Alaya Lab
+
+This licence covers everything in this project that is derived from the WildWorld
+dataset, namely:
+
+  * the released model weights (dynamics and observation);
+  * the seed state segments, scanned terrain height fields, appearance reference
+    video, demonstration videos and gallery stills distributed with this project
+    or from its companion dataset repository.
+
+It does NOT cover the source code in this repository, which is licensed under the
+Apache License 2.0 (see LICENSE).
+
+------------------------------------------------------------------------------
+
+These weights and assets are made available for non-commercial, research purposes
+only, and redistribution is not permitted. Non-commercial means not primarily
+intended for or directed towards commercial advantage or monetary compensation.
+Research purposes mean solely for study, instruction, or non-commercial research,
+testing or validation.
+
+No commercial licence, whether implied or otherwise, is granted in or to these
+weights and assets, unless you have entered into a separate agreement with us for
+such rights.
+
+These weights and assets are provided as-is, without warranty of any kind, express
+or implied, including any warranties of merchantability, title, fitness for a
+particular purpose, non-infringement, or that they are free of defects, errors or
+viruses. In no event will we be liable for any damages or losses of any kind
+arising from these weights and assets or your use thereof.
+
+------------------------------------------------------------------------------
+
+Rights in the game content from which the source corpus was recorded remain with
+its publisher. This licence grants no rights in that content.
+
+TWO FILES IN THIS PROJECT ARE UNMODIFIED RECORDED GAMEPLAY VIDEO, not model output:
+data/first_frame_ref.mp4 and data/demo/aligned_ref.mp4. The observation model is
+conditioned on a reference frame and these supply it. They are short clips from the
+same recordings the corpus was built from, and they are covered by the terms above.
+Everything else covered by this licence -- seed states, scanned height fields, pose
+videos, rollouts and gallery stills -- is numeric derivation or model output.

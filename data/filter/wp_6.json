@@ -1,0 +1,67 @@
+{
+    "childs": [
+        {
+            "childs": [
+                {
+                    "childs": [
+                        {
+                            "childs": [
+                                {
+                                    "childs": [
+                                        {
+                                            "childs": null,
+                                            "name": "CH00_end"
+                                        }
+                                    ],
+                                    "name": "CH00_02"
+                                }
+                            ],
+                            "name": "CH00_01"
+                        }
+                    ],
+                    "name": "CH00_00"
+                },
+                {
+                    "childs": [
+                        {
+                            "childs": [
+                                {
+                                    "childs": [
+                                        {
+                                            "childs": null,
+                                            "name": "Liquid0_end"
+                                        }
+                                    ],
+                                    "name": "Liquid0_01"
+                                }
+                            ],
+                            "name": "Liquid0_00"
+                        }
+                    ],
+                    "name": "Grip"
+                },
+                {
+                    "childs": [
+                        {
+                            "childs": [
+                                {
+                                    "childs": [
+                                        {
+                                            "childs": null,
+                                            "name": "Liquid1_end"
+                                        }
+                                    ],
+                                    "name": "Liquid1_01"
+                                }
+                            ],
+                            "name": "Liquid1_00"
+                        }
+                    ],
+                    "name": "Spear"
+                }
+            ],
+            "name": "Base"
+        }
+    ],
+    "name": "root"
+}

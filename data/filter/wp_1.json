@@ -1,0 +1,135 @@
+{
+    "childs": [
+        {
+            "childs": [
+                {
+                    "childs": null,
+                    "name": "VFX_Attack"
+                },
+                {
+                    "childs": null,
+                    "name": "HJ_Driven"
+                },
+                {
+                    "childs": [
+                        {
+                            "childs": null,
+                            "name": "HJ_1"
+                        }
+                    ],
+                    "name": "HJ_1_P"
+                },
+                {
+                    "childs": [
+                        {
+                            "childs": null,
+                            "name": "HJ_2"
+                        }
+                    ],
+                    "name": "HJ_2_P"
+                },
+                {
+                    "childs": [
+                        {
+                            "childs": null,
+                            "name": "HJ_3"
+                        }
+                    ],
+                    "name": "HJ_3_P"
+                },
+                {
+                    "childs": [
+                        {
+                            "childs": null,
+                            "name": "HJ_4"
+                        }
+                    ],
+                    "name": "HJ_4_P"
+                },
+                {
+                    "childs": [
+                        {
+                            "childs": null,
+                            "name": "HJ_5"
+                        }
+                    ],
+                    "name": "HJ_5_P"
+                },
+                {
+                    "childs": [
+                        {
+                            "childs": null,
+                            "name": "HJ_6"
+                        }
+                    ],
+                    "name": "HJ_6_P"
+                },
+                {
+                    "childs": [
+                        {
+                            "childs": null,
+                            "name": "HJ_7"
+                        }
+                    ],
+                    "name": "HJ_7_P"
+                },
+                {
+                    "childs": [
+                        {
+                            "childs": null,
+                            "name": "HJ_8"
+                        }
+                    ],
+                    "name": "HJ_8_P"
+                },
+                {
+                    "childs": [
+                        {
+                            "childs": null,
+                            "name": "HJ_9"
+                        }
+                    ],
+                    "name": "HJ_9_P"
+                },
+                {
+                    "childs": [
+                        {
+                            "childs": null,
+                            "name": "HJ_10"
+                        }
+                    ],
+                    "name": "HJ_10_P"
+                },
+                {
+                    "childs": [
+                        {
+                            "childs": null,
+                            "name": "HJ_11"
+                        }
+                    ],
+                    "name": "HJ_11_P"
+                },
+                {
+                    "childs": [
+                        {
+                            "childs": null,
+                            "name": "HJ_12"
+                        }
+                    ],
+                    "name": "HJ_12_P"
+                },
+                {
+                    "childs": [
+                        {
+                            "childs": null,
+                            "name": "HJ_13"
+                        }
+                    ],
+                    "name": "HJ_13_P"
+                }
+            ],
+            "name": "Base"
+        }
+    ],
+    "name": "root"
+}
