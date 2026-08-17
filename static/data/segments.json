@@ -1,0 +1,102 @@
+{
+ "ctrl_action": {
+  "dur": 20.0,
+  "segments": [
+   {
+    "rgb": "static/videos/ctrl_action_0_rgb.mp4",
+    "pose": "static/videos/ctrl_action_0_pose.mp4",
+    "poster": "static/images/ctrl_action_0_rgb_poster.jpg",
+    "i": 0,
+    "t0": 0.0,
+    "t1": 5.0,
+    "lab": "IDLE",
+    "sub": "id 1"
+   },
+   {
+    "rgb": "static/videos/ctrl_action_1_rgb.mp4",
+    "pose": "static/videos/ctrl_action_1_pose.mp4",
+    "poster": "static/images/ctrl_action_1_rgb_poster.jpg",
+    "i": 1,
+    "t0": 5.0,
+    "t1": 10.0,
+    "lab": "ATTACK",
+    "sub": "id 493"
+   },
+   {
+    "rgb": "static/videos/ctrl_action_2_rgb.mp4",
+    "pose": "static/videos/ctrl_action_2_pose.mp4",
+    "poster": "static/images/ctrl_action_2_rgb_poster.jpg",
+    "i": 2,
+    "t0": 10.0,
+    "t1": 15.0,
+    "lab": "DODGE",
+    "sub": "id 407, 1.5 s"
+   },
+   {
+    "rgb": "static/videos/ctrl_action_3_rgb.mp4",
+    "pose": "static/videos/ctrl_action_3_pose.mp4",
+    "poster": "static/images/ctrl_action_3_rgb_poster.jpg",
+    "i": 3,
+    "t0": 15.0,
+    "t1": 20.0,
+    "lab": "HEAVY",
+    "sub": "id 499"
+   }
+  ]
+ },
+ "ctrl_move": {
+  "dur": 14.6,
+  "segments": [
+   {
+    "rgb": "static/videos/ctrl_move_0_rgb.mp4",
+    "pose": "static/videos/ctrl_move_0_pose.mp4",
+    "poster": "static/images/ctrl_move_0_rgb_poster.jpg",
+    "i": 0,
+    "t0": 0.0,
+    "t1": 4.0,
+    "lab": "spin",
+    "sub": "in place"
+   },
+   {
+    "rgb": "static/videos/ctrl_move_1_rgb.mp4",
+    "pose": "static/videos/ctrl_move_1_pose.mp4",
+    "poster": "static/images/ctrl_move_1_rgb_poster.jpg",
+    "i": 1,
+    "t0": 4.0,
+    "t1": 6.0,
+    "lab": "run",
+    "sub": "heading 1"
+   },
+   {
+    "rgb": "static/videos/ctrl_move_2_rgb.mp4",
+    "pose": "static/videos/ctrl_move_2_pose.mp4",
+    "poster": "static/images/ctrl_move_2_rgb_poster.jpg",
+    "i": 2,
+    "t0": 6.0,
+    "t1": 8.0,
+    "lab": "run",
+    "sub": "+90&deg;"
+   },
+   {
+    "rgb": "static/videos/ctrl_move_3_rgb.mp4",
+    "pose": "static/videos/ctrl_move_3_pose.mp4",
+    "poster": "static/images/ctrl_move_3_rgb_poster.jpg",
+    "i": 3,
+    "t0": 8.0,
+    "t1": 10.0,
+    "lab": "run",
+    "sub": "+180&deg;"
+   },
+   {
+    "rgb": "static/videos/ctrl_move_4_rgb.mp4",
+    "pose": "static/videos/ctrl_move_4_pose.mp4",
+    "poster": "static/images/ctrl_move_4_rgb_poster.jpg",
+    "i": 4,
+    "t0": 10.0,
+    "t1": 14.6,
+    "lab": "run",
+    "sub": "+270&deg;"
+   }
+  ]
+ }
+}

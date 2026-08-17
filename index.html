@@ -1,0 +1,940 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Marionette &mdash; Predicting World States, Rendering Geometry, Painting Appearance</title>
+<meta name="description" content="Marionette: a decoupled game world model. Explicit articulated-pose dynamics, a zero-parameter deterministic rendering harness, and a control-conditioned video-diffusion observation model.">
+<meta property="og:title" content="Marionette: Predicting World States, Rendering Geometry, Painting Appearance">
+<meta property="og:description" content="A game world model that predicts an explicit 3D world state, renders its geometry deterministically, and leaves only appearance to a diffusion model.">
+<meta property="og:image" content="static/images/s01_rgb_poster.jpg">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand"><a href="#top">Alaya Lab</a></div>
+    <nav class="topnav">
+      <a href="#system">System</a>
+      <a href="#insight">Takeaways</a>
+      <a href="#samples">Samples</a>
+      <a href="#compare">Comparison</a>
+      <a href="#control">Control</a>
+      <a href="#numbers">Numbers</a>
+      <a href="#data">Data</a>
+      <a href="#bibtex">BibTeX</a>
+    </nav>
+  </div>
+</div>
+
+<a id="top"></a>
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">Game World Models</div>
+    <h1>Predicting World States, Rendering Geometry,<br>Painting <em>Appearance</em></h1>
+    <div class="subtitle">
+      <b>Marionette</b> predicts an explicit, interpretable 3D world state, renders its geometry
+      with a graphics operator that has no learnable parameters, and asks a video-diffusion model
+      for one thing only: appearance.
+    </div>
+    <div class="authors">
+      Zian Meng<sup>1,2,3,*</sup>,
+      Zhen Li<sup>1,*</sup>,
+      Chuanhao Li<sup>1</sup>,
+      Qiang Li<sup>3</sup>,
+      Kaipeng Zhang<sup>1,2</sup>
+    </div>
+    <div class="affil">
+      <sup>1</sup>Alaya Lab &nbsp;&middot;&nbsp;
+      <sup>2</sup>Shanghai Innovation Institute &nbsp;&middot;&nbsp;
+      <sup>3</sup>Huazhong University of Science and Technology
+    </div>
+    <div class="affil">
+      <sup>*</sup>Equal contribution
+    </div>
+    <div class="buttons">
+      <a class="btn" href="https://arxiv.org/abs/2608.14530"><span class="ico">&#9673;</span> Paper</a>
+      <a class="btn" href="https://github.com/AlayaLab/Marionette"><span class="ico">&#9673;</span> Code</a>
+      <a class="btn" href="https://huggingface.co/AlayaLab/Marionette"><span class="ico">&#9673;</span> Weights</a>
+      <a class="btn" href="https://arxiv.org/abs/2603.23497"><span class="ico">&#9673;</span> WildWorld dataset</a>
+    </div>
+  </div>
+</header>
+
+<!-- ======================= hero film band =======================
+     Two things stacked, for one reason: a 90-second narrated film is the wrong thing to
+     autoplay on a loop. Muted it loses the narration that carries it, and looped it restarts
+     mid-sentence. So the bed is a silent 16 s rollout that is meant to repeat, and the film
+     itself sits one click on top of it, with sound, where the loop was.
+     The YouTube iframe is not in the document until that click: no third-party request, no
+     cookie and no 500 KB of player script on a page nobody has asked to watch yet. -->
+<div class="wrap">
+  <div class="film" id="film">
+    <video class="filmbed" id="filmbed" autoplay muted loop playsinline preload="auto"
+           poster="static/images/hero_loop_poster.jpg">
+      <source src="static/videos/hero_loop.mp4" type="video/mp4">
+    </video>
+    <div class="filmscrim"></div>
+    <button class="filmplay" id="filmplay" type="button"
+            aria-label="Play the overview video with sound">
+      <span class="ring"><span class="tri"></span></span>
+      <span class="lbl">Watch the overview</span>
+      <span class="sub">1:34 &middot; with sound &middot; YouTube</span>
+    </button>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="specs">
+    <div class="spec"><b>276</b><span>dimensional world state</span></div>
+    <div class="spec"><b>0</b><span>learned parameters in the bridge</span></div>
+    <div class="spec"><b>837</b><span>FVD, against 975 for pixel-AR</span></div>
+    <div class="spec"><b>+31%</b><span>pose error from a wrong action token</span></div>
+    <div class="spec"><b>673.8 h</b><span>paired RGB and state footage</span></div>
+  </div>
+</div>
+
+<!-- ======================= interactive system diagram ======================= -->
+<!-- First section on the page, before the axis argument: show the thing running before making a
+     claim about where its cut belongs. -->
+<section id="system">
+  <div class="wrap">
+    <div class="kicker">System</div>
+    <h2>One world model, assembled from four parts</h2>
+    <p class="lede">
+      Each stage does one job and hands the next an explicit object, never a hidden activation.
+      Pick a node to see what it produces and watch it run on real data.
+    </p>
+
+    <div class="rail-wrap">
+      <div class="rail">
+        <div class="seg solid"></div>
+        <div class="seg dash"></div>
+        <div class="fill" id="railFill"></div>
+        <div class="head" id="railHead"></div>
+      </div>
+      <div class="nodes" id="nodes">
+        <button class="node on" data-i="0" style="--c:var(--neural)" aria-pressed="true">
+          <span class="dot"></span><span class="nm">ActionGPT</span><span class="sb">decision</span>
+        </button>
+        <button class="node" data-i="1" style="--c:var(--harness)" aria-pressed="false">
+          <span class="dot"></span><span class="nm">PoseGPT</span><span class="sb">state</span>
+        </button>
+        <button class="node" data-i="2" style="--c:var(--gold)" aria-pressed="false">
+          <span class="dot"></span><span class="nm">Bridge</span><span class="sb">geometry</span>
+        </button>
+        <button class="node" data-i="3" style="--c:var(--red)" aria-pressed="false">
+          <span class="dot"></span><span class="nm">Observation</span><span class="sb">appearance</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- text and animation side by side: stacked, this section was ~1100 px and the
+         description, the animation and the rail could not be seen together on a laptop -->
+    <div class="stagerow">
+      <div class="stagecard" id="stagecard" style="--c:var(--neural)">
+        <div class="hd">
+          <h4 id="stName">ActionGPT</h4>
+          <div class="meta" id="stMeta">decision &middot; 2.5M params</div>
+        </div>
+        <p class="line" id="stLine">picks one discrete action token per entity, per frame</p>
+        <p class="hand" id="stHand">hands over &nbsp;&rarr;&nbsp; a token</p>
+        <!-- what the panel on the right is showing. This used to be an overlay caption
+             inside the canvas, where it collided with the annotations the animations draw
+             themselves. It belongs with the prose, not on top of the picture. -->
+        <p class="src" id="stSrc">a real action stream, drawn live</p>
+        <button class="syncbtn" id="actReplay">&#8635; replay</button>
+      </div>
+      <div class="stageviz">
+        <canvas id="stageCanvas"></canvas>
+      </div>
+    </div>
+
+    <p class="note" style="margin-top:22px">
+      The dashed leg marks where the world stops being a state and becomes pixels &mdash; not where
+      generation starts. <b>Everything here is generated.</b> The model is handed two things and
+      nothing else: a short seed of pose frames, and one reference image. From there ActionGPT
+      invents the action stream, PoseGPT invents the articulated state, and only the bridge is not
+      generative &mdash; it is closed-form geometry with no weights. In the demo film the first
+      three stages are drawn from a ground-truth-aligned state so that one continuous moment can be
+      followed across all four panels; that is a continuity device for the film, not how the system
+      runs.
+    </p>
+  </div>
+</section>
+
+<!-- ======================= insight: the axis ======================= -->
+<!-- Placed AFTER the system walkthrough: a reader who has just watched the four stages run has
+     something concrete to hang the argument on, so the axis reads as a claim about a system they
+     have seen rather than as preamble. Drawn in the page rather than as an image so it stays
+     legible at any width. Wordmarks are set as text, not logos: naming a system is enough to
+     place it, and the page keeps its own assets local. -->
+<section id="insight">
+  <div class="wrap">
+    <div class="kicker">Insight</div>
+    <h2>How much of a world is computed, and how much is generated</h2>
+    <p class="lede">
+      Every way of putting a virtual world on screen sits somewhere on one axis. At the left the
+      world is a program and every pixel is the consequence of code. At the right it is a
+      distribution and every pixel is a sample. The interesting question is not which end wins.
+      It is <b>where you put the cut</b> &mdash; which parts of a world are exact by
+      construction, and which are worth generating.
+    </p>
+
+    <div class="axis" role="img"
+         aria-label="An axis from rule-based to generative. Left: game and physics engines. Then temporal upscalers. Then neural rendering from G-buffers. Middle: the ideal balance. Right of middle: Marionette, this work. Far right: end-to-end video world models.">
+      <div class="axtrack">
+        <div class="axfill"></div>
+        <div class="axideal" style="left:50%"><span>ideal balance</span></div>
+        <div class="axus" style="left:66%"></div>
+      </div>
+
+      <div class="axends">
+        <div class="e l"><b>Rule-based</b><span>the world is a program</span></div>
+        <div class="e r"><b>Generative</b><span>the world is a distribution</span></div>
+      </div>
+
+      <!-- Collapsed, every card carries only a one-line summary so all four are the same
+           height. The full prose and the figure live in the node too, hidden, and are moved
+           into the full-width panel below when the node is opened. -->
+      <div class="axnodes">
+        <div class="ax up" data-i="0" style="--x:9%">
+          <div class="dot"></div>
+          <button class="card" aria-expanded="false" aria-controls="axdetail">
+            <div class="marks">Unreal &middot; Unity &middot; Godot</div>
+            <h3>Game &amp; physics engines</h3>
+            <p class="sum">Pure program. Nothing outside the authored assets exists.</p>
+            <span class="more" aria-hidden="true">&#9662;</span>
+          </button>
+          <div class="full" hidden>
+            <p>Pure program. Geometry, collision and occlusion are exact because they are
+               computed, and nothing outside the authored assets exists. A scene is an explicit
+               tree of authored nodes, so consistency is not a behaviour that has to be learned
+               or defended &mdash; it is a property of the data structure.</p>
+            <p class="links">
+              <a href="https://www.unrealengine.com/unreal-engine-5" target="_blank" rel="noopener">Unreal Engine</a>
+              <a href="https://unity.com/products/unity-engine" target="_blank" rel="noopener">Unity</a>
+              <a href="https://godotengine.org/" target="_blank" rel="noopener">Godot</a>
+            </p>
+          </div>
+          <figure class="axfig" hidden>
+            <img alt="The Godot editor, showing a scene assembled as an explicit tree of authored nodes."
+                 src="https://godotengine.org/assets/features/editor-frame.webp?2" loading="lazy">
+            <figcaption>A scene is an explicit tree of authored nodes. Nothing is inferred.
+              Screenshot from <a href="https://godotengine.org/features/" target="_blank" rel="noopener">godotengine.org</a>.</figcaption>
+          </figure>
+        </div>
+
+        <div class="ax up" data-i="1" style="--x:33%">
+          <div class="dot"></div>
+          <button class="card" aria-expanded="false" aria-controls="axdetail">
+            <div class="marks">DLSS&nbsp;5 &middot; neural rendering</div>
+            <h3>Engine geometry, learned pixels</h3>
+            <p class="sum">The engine owns the simulation; a network makes the image.</p>
+            <span class="more" aria-hidden="true">&#9662;</span>
+          </button>
+          <div class="full" hidden>
+            <p>The engine still owns the simulation and hands over buffers &mdash; depth, albedo,
+               normals, motion vectors &mdash; and a network turns them into the image. DLSS began
+               as upscaling and has grown into exactly this: NVIDIA now describe DLSS&nbsp;5 as
+               neural rendering that injects lighting and material response into pixels, not
+               merely more of them. Which is why upscaling and G-buffer neural rendering are one
+               point on this axis rather than two.</p>
+            <p class="links">
+              <a href="https://www.nvidia.cn/geforce/news/dlss5-breakthrough-in-visual-fidelity-for-games/" target="_blank" rel="noopener">NVIDIA DLSS&nbsp;5</a>
+            </p>
+          </div>
+          <figure class="axfig" hidden>
+            <img alt="NVIDIA's diagram of how DLSS 5 works, taking engine buffers and producing rendered pixels."
+                 src="https://www.nvidia.cn/content/dam/en-zz/nvidiaweb/geforce/news/dlss5-breakthrough-in-visual-fidelity-for-games/how-nvidia-dlss-5-works.jpg" loading="lazy">
+            <figcaption>Engine buffers in, rendered pixels out. Figure &copy; NVIDIA, from their
+              <a href="https://www.nvidia.cn/geforce/news/dlss5-breakthrough-in-visual-fidelity-for-games/" target="_blank" rel="noopener">DLSS&nbsp;5 announcement</a>.</figcaption>
+          </figure>
+        </div>
+
+        <div class="ax up us" data-i="2" style="--x:66%">
+          <div class="dot"></div>
+          <button class="card" aria-expanded="false" aria-controls="axdetail">
+            <div class="marks">this work</div>
+            <h3>Marionette</h3>
+            <p class="sum">Generated state, computed geometry, generated appearance.</p>
+            <span class="more" aria-hidden="true">&#9662;</span>
+          </button>
+          <div class="full" hidden>
+            <p>Right of the middle, and we are explicit about why: our <em>state</em> is generated
+               too. A learned model invents what happens next, and only the step from state to
+               geometry is a program &mdash; a rule-governed operator with no weights in it. So we
+               inherit exactness where a rule can provide it and generate everything else, which
+               is a claim about <em>where</em> the cut belongs rather than about how much
+               generation is good for you.</p>
+          </div>
+          <figure class="axfig" hidden>
+            <img alt="Top row: pose-control frames computed from the predicted state. Bottom row: the RGB rendered from them."
+                 src="static/images/axis_ours.jpg" loading="lazy">
+            <figcaption>Top: geometry rasterized from the predicted state, no weights involved.
+              Bottom: the appearance a diffusion model paints onto it.</figcaption>
+          </figure>
+        </div>
+
+        <div class="ax up" data-i="3" style="--x:93%">
+          <div class="dot"></div>
+          <button class="card" aria-expanded="false" aria-controls="axdetail">
+            <div class="marks">Genie&nbsp;3 &middot; GameNGen &middot; Oasis</div>
+            <h3>End-to-end video world models</h3>
+            <p class="sum">Pure observation. Nothing is exact by construction.</p>
+            <span class="more" aria-hidden="true">&#9662;</span>
+          </button>
+          <div class="full" hidden>
+            <p>Pure observation. No state, no program, nothing exact by construction &mdash;
+               consistency and control are behaviours that emerge, or fail to. The appeal is
+               obvious: no rig, no assets, no authored world, and whatever the data contains is
+               what the model can produce.</p>
+            <p class="links">
+              <a href="https://deepmind.google/models/genie/" target="_blank" rel="noopener">Genie&nbsp;3</a>
+              <a href="https://gamengen.github.io/" target="_blank" rel="noopener">GameNGen</a>
+              <a href="https://oasis.decart.ai/" target="_blank" rel="noopener">Oasis</a>
+            </p>
+          </div>
+          <figure class="axfig" hidden>
+            <img class="onwhite"
+                 alt="GameNGen's architecture: agent play is collected, a diffusion model is trained on it, and the latent decoder is fine-tuned."
+                 src="https://gamengen.github.io/static/images/Architecture_08_27.png" loading="lazy">
+            <figcaption>Everything lives in the generator. Figure from
+              <a href="https://gamengen.github.io/" target="_blank" rel="noopener">GameNGen</a>,
+              <em>Diffusion Models Are Real-Time Game Engines</em>.</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <!-- Full-width detail. Filled by cloning the opened node's hidden prose and figure, so
+           there is exactly one copy of every sentence in the source. -->
+      <div class="axdetail" id="axdetail" hidden>
+        <div class="axdhead">
+          <div>
+            <div class="marks" id="axdMarks"></div>
+            <h3 id="axdTitle"></h3>
+          </div>
+          <button class="axclose" id="axdClose" aria-label="close">&times;</button>
+        </div>
+        <div class="axdbody">
+          <div class="axdtext" id="axdText"></div>
+          <div class="axdfig" id="axdFig"></div>
+        </div>
+      </div>
+    </div>
+
+    <p class="note">
+      Read left to right and something is given up at every step; read right to left and
+      something is gained. The middle is where a program and a generator each do what they are
+      good at, and it is not obvious that any current system is there. We sit right of it
+      because we generate the world's state and compute only its geometry. That is a claim about
+      <em>where</em> the cut belongs, and the rest of this page is what it buys.
+    </p>
+  </div>
+</section>
+
+<!-- ======================= inference samples ======================= -->
+<section id="samples">
+  <div class="wrap">
+    <div class="kicker">Inference</div>
+    <h2>Drag to see what is computed and what is generated</h2>
+    <p class="lede">
+      Each clip is one autoregressive rollout. The right of the divider is the pose-control video
+      the deterministic bridge rasterizes from the predicted state; the left is the RGB the
+      observation model paints from it. The geometry the two sides share is never generated.
+    </p>
+    <div class="hint"><span>&#8596;</span> drag the divider &middot; clips play when they scroll into view</div>
+
+    <div class="gallery" id="gallery"></div>
+
+    <p class="note">
+      These are the first nine seconds of seventeen-second rollouts. Later chunks degrade in two
+      ways. The characters sometimes walk past the edge of the scanned terrain, which is a coverage
+      limit of our height field. Appearance also drifts: it is the one quantity carried forward only
+      through the chunk-relay seed frames, so unlike geometry it has no anchor in the state. That is
+      an open problem, and the paper's Limitations section sets out how we intend to attack it.
+    </p>
+  </div>
+</section>
+
+<!-- ======================= four systems, free generation ======================= -->
+<section id="compare">
+  <div class="wrap">
+    <div class="kicker">Comparison</div>
+    <h2>Four systems, let run freely</h2>
+    <p class="lede">
+      No control is injected into any of these. Each system is given a first frame and simply
+      allowed to continue, because the only question here is <b>what the picture looks
+      like</b> &mdash; not how faithfully any particular moment is reconstructed. Whether a
+      command is actually obeyed is a different question, and it has its own section below.
+    </p>
+    <div class="cmpgrid" id="cmpgrid"></div>
+    <p class="note">
+      Ours and the pixel-autoregressive baseline are free rollouts of the same window: the
+      decision model predicts its own action stream and nothing is forced. The commercial
+      systems received a free-combat prompt with no schedule.
+    </p>
+  </div>
+</section>
+
+<!-- ======================= control ======================= -->
+<section id="control">
+  <div class="wrap">
+    <div class="kicker">Control</div>
+    <h2>Two channels: the action token, and the root</h2>
+    <p class="lede">
+      Steering this model is a tensor assignment on its own output stream. No gradient, no
+      auxiliary conditioning network, no retraining. Each clip is cut at its injection points, so
+      a marker switches to that moment instantly instead of seeking.
+    </p>
+
+    <h3>Forcing the action token</h3>
+    <!-- Built from static/data/segments.json, which build_assets.py writes when it cuts the
+         clips, so the markers and the cut points cannot disagree. -->
+    <div class="segplayer" id="spAction" data-group="ctrl_action"></div>
+    <figcaption>
+      A flat constructed floor and a fixed camera, so nothing but the commanded action can change
+      the picture. A new action id is written into the stream every five seconds and the body
+      executes it within a few frames. Drag the divider and the division of labour is visible: the
+      pose side contains the hunter and nothing else, while the RGB side invents the surrounding
+      creatures and debris. Those inventions are exactly the un-conditioned content our data audit
+      turns up, and they belong to the observation model, not to the state.
+    </figcaption>
+
+    <h3>Scripting the root directly</h3>
+    <div class="segplayer" id="spMove" data-group="ctrl_move"></div>
+    <figcaption>
+      The root is a regressed, metric quantity that the animation stage consumes, so it can be
+      overwritten just like a token. The character spins in place, then takes a new heading every
+      two seconds at a commanded 2.5&nbsp;m/s, each turn exactly 90&deg;. Marker times are measured
+      back off the generated root track, not asserted.
+    </figcaption>
+  </div>
+</section>
+
+<!-- ======================= numbers ======================= -->
+<section id="numbers">
+  <div class="wrap">
+    <div class="kicker">Evaluation</div>
+    <h2>Measured on two layers, which a pixel-only model cannot do</h2>
+    <p class="lede">
+      Because the state is a metric articulated skeleton, error can be scored in the world itself,
+      in absolute units, before anything is rendered. The observation layer is the shared ground
+      where any model that emits RGB can be compared.
+    </p>
+
+    <table class="res">
+      <thead><tr><th>Layer</th><th>Metric</th><th style="text-align:right">Marionette</th><th style="text-align:right">Pixel-AR</th></tr></thead>
+      <tbody>
+        <tr><td>Observation</td><td>FVD<sub>16</sub> &darr;</td><td class="num win">741</td><td class="num">1131</td></tr>
+        <tr><td>Observation</td><td>FVD, final chunk of a long rollout &darr;</td><td class="num win">890</td><td class="num">1424</td></tr>
+        <tr><td>State</td><td>RA-MPJPE @100f, hunter (m) &darr;</td><td class="num">0.274</td><td class="na">no state to score</td></tr>
+        <tr><td>Control</td><td>RA-MPJPE, correct action forced (m) &darr;</td><td class="num">0.272</td><td class="na">no state to score</td></tr>
+        <tr><td>Control</td><td>RA-MPJPE, wrong action forced (m) &uarr;</td><td class="num">0.357</td><td class="na">no state to score</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <p>
+        Two findings worth stating plainly. Driving the same observation model with
+        <b>ground-truth pose instead of predicted pose changes nothing measurable</b>, so the
+        rendering stage, and not the dynamics, is what currently limits us. And per-chunk FVD stays
+        flat for <b>both</b> models over a long rollout even while the pixel-autoregressive baseline
+        is quietly swapping the conditioned monster for a different species, which is why we pair
+        distributional scores with state-layer diagnostics and caution against reading a flat FVD
+        curve as evidence of long-horizon consistency.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= dataset ======================= -->
+<section id="data">
+  <div class="wrap">
+    <div class="kicker">Data</div>
+    <h2>Two synchronized views of the same footage</h2>
+    <p class="lede">
+      Every recording yields both an RGB stream and a per-frame 276-dimensional articulated world
+      state, read out of the game engine, so an action label is the animation the engine actually
+      played and not something a vision model guessed. That correspondence is what makes the
+      dual-layer evaluation possible at all.
+    </p>
+
+    <div class="statgrid">
+      <div class="stat"><b>4,008</b><span>RGB clips</span></div>
+      <div class="stat"><b>673.8 h</b><span>decodable source footage</span></div>
+      <div class="stat"><b>1,395</b><span>state segments @ 20 fps</span></div>
+      <div class="stat"><b>16.4 M</b><span>annotated state frames</span></div>
+      <div class="stat"><b>27</b><span>monster types</span></div>
+      <div class="stat"><b>5</b><span>weapon types</span></div>
+      <div class="stat"><b>6</b><span>hunter appearances</span></div>
+      <div class="stat"><b>5</b><span>stages</span></div>
+      <div class="stat"><b>54 / 32 / 2</b><span>joints: monster / hunter / weapon</span></div>
+      <div class="stat"><b>173 / 689</b><span>action vocabulary: monster / hunter</span></div>
+    </div>
+
+    <h3>The two views, side by side</h3>
+    <div class="hint"><span>&#8596;</span> drag the divider</div>
+    <div class="wipe wide" id="gridWipe" style="--x:61.8%">
+      <video class="base" src="static/videos/grid_pose.mp4" muted loop playsinline preload="none"></video>
+      <video class="top" src="static/videos/grid_rgb.mp4" poster="static/images/grid_rgb_poster.jpg"
+             muted loop playsinline preload="none"></video>
+      <div class="bar"><div class="grip"></div></div>
+      <div class="tag l">RGB view</div>
+      <div class="tag r">state view, rasterized</div>
+    </div>
+    <figcaption>
+      Twenty-five recordings at once. Both views come from the identical frames, which is why the
+      skeletons on the right line up with the bodies on the left everywhere in the grid.
+    </figcaption>
+
+    <p class="note">
+      The corpus is our previously released <a href="https://arxiv.org/abs/2603.23497">WildWorld</a>
+      dataset, and it is richer than the slice we exercise here: 29 monster species with mutually
+      incompatible skeletons, four weapon classes, parties of up to four hunters. We hold most of
+      that fixed and study one-on-one combat so that the state layout, the action vocabulary, and
+      every metric mean the same thing across all of our ablations. The scanned terrain height
+      fields the harness consumes are new to this work.
+    </p>
+  </div>
+</section>
+
+<section id="bibtex">
+  <div class="wrap narrow">
+    <div class="kicker">Citation</div>
+    <h2>BibTeX</h2>
+<pre class="bib">@article{meng2026marionette,
+  title   = {Marionette: Predicting World States, Rendering Geometry, Painting Appearance},
+  author  = {Meng, Zian and Li, Zhen and Li, Chuanhao and Li, Qiang and Zhang, Kaipeng},
+  journal = {arXiv preprint arXiv:2608.14530},
+  year    = {2026}
+}</pre>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap narrow">
+    <p>
+      Gameplay footage is from <em>Monster Hunter Wilds</em> (&copy; Capcom Co., Ltd.), recorded by
+      us on retail copies we purchased and used solely for non-commercial academic research. The
+      model weights we build on (Wan2.2-Fun-5B-Control, VideoX-Fun) are Apache&nbsp;2.0. All
+      material released with this project is for non-commercial academic research only.
+    </p>
+    <p>Alaya Lab &middot; 2026</p>
+  </div>
+</footer>
+
+<!-- loaded synchronously and BEFORE the inline script below, which uses
+     StageAnim during parsing. With defer it would run too late. -->
+<script src="static/js/stages.js"></script>
+<script>
+/* ================= the four stages =================
+   Text, glyphs and colours are ported from the demo film's Overview scene, and the
+   example clip under each node is that stage's act cut from the Pipeline film, so
+   the page and the video are literally the same material. */
+var STAGES = [
+  { name: 'ActionGPT', meta: 'decision &middot; 2.5M params', col: 'var(--neural)',
+    viz: 'The panel plays a real action stream, drawn live. The model predicts a stream of exactly this form.',
+    line: 'picks one discrete action token per entity, per frame',
+    hand: 'hands over &nbsp;&rarr;&nbsp; a token' },
+  { name: 'PoseGPT', meta: 'state &middot; 25M params', col: 'var(--harness)',
+    viz: 'The panel plays a real episode in 3D, the same shot the film uses.',
+    line: 'turns those tokens into a 276-D articulated world state',
+    hand: 'hands over &nbsp;&rarr;&nbsp; a state' },
+  { name: 'Bridge', meta: 'geometry &middot; 0 params', col: 'var(--gold)',
+    viz: 'The panel projects and rasterizes in your browser, from the same arrays.',
+    line: 'projects and rasterizes that state into a pose-control frame',
+    hand: 'x = K [R | t] X &nbsp; closed form, no weights' },
+  { name: 'Observation', meta: 'appearance &middot; Wan2.2-Fun-5B', col: 'var(--red)',
+    viz: 'The panel steps through the chunk-relay schedule.',
+    line: 'paints RGB from that pose control plus a single first frame',
+    hand: 'relayed in 81-frame chunks &nbsp;&rarr;&nbsp; the picture' }
+];
+/* Each stage is animated in a canvas from real exported arrays (static/js/stages.js),
+   not cut from the film. Selecting a node restarts that stage's clock; it runs once
+   through and eases to a stop rather than looping. */
+var HAVE_ANIM = typeof StageAnim !== 'undefined';
+if (HAVE_ANIM) {
+  try { StageAnim.init(document.getElementById('stageCanvas')); }
+  catch (e) { HAVE_ANIM = false; console.error('stage animation failed to start', e); }
+}
+document.getElementById('actReplay').addEventListener('click', function () {
+  if (HAVE_ANIM) StageAnim.play(+document.querySelector('#nodes .node.on').dataset.i);
+});
+
+function selectStage(i, play) {
+  var s = STAGES[i];
+  document.querySelectorAll('#nodes .node').forEach(function (n, k) {
+    n.classList.toggle('on', k === i);
+    n.classList.toggle('done', k < i);
+    n.setAttribute('aria-pressed', k === i ? 'true' : 'false');
+  });
+  var card = document.getElementById('stagecard');
+  card.style.setProperty('--c', s.col);
+  document.getElementById('stName').innerHTML = s.name;
+  document.getElementById('stMeta').innerHTML = s.meta;
+  document.getElementById('stLine').innerHTML = s.line;
+  document.getElementById('stHand').innerHTML = s.hand;
+  document.getElementById('stSrc').innerHTML = s.viz;
+  var pct = (i / (STAGES.length - 1)) * 100;
+  var fill = document.getElementById('railFill'), head = document.getElementById('railHead');
+  fill.style.width = pct + '%'; fill.style.setProperty('--acc', s.col);
+  head.style.left = pct + '%'; head.style.setProperty('--acc', s.col);
+  if (play && HAVE_ANIM) StageAnim.play(i);
+}
+
+document.querySelectorAll('#nodes .node').forEach(function (n) {
+  n.addEventListener('click', function () { selectStage(+n.dataset.i, true); });
+});
+document.getElementById('nodes').addEventListener('keydown', function (e) {
+  var cur = +document.querySelector('#nodes .node.on').dataset.i;
+  if (e.key === 'ArrowRight') { selectStage(Math.min(3, cur + 1), true); e.preventDefault(); }
+  if (e.key === 'ArrowLeft') { selectStage(Math.max(0, cur - 1), true); e.preventDefault(); }
+});
+selectStage(0, false);
+
+/* ================= control timelines =================
+   Marker times are measured, not asserted: the action injection was located from the
+   pose track (a single forced id at 5.00 s) and the heading changes were read off the
+   generated root trajectory. */
+var GOLDEN = 61.8;   // every wipe divider starts on the golden section
+
+/* ================= control: segment players =================
+   Rather than seeking inside one long clip -- which needs HTTP Range and is never instant --
+   each demo is cut at its injection points and every segment is its own short clip. A marker
+   switches to that segment and plays from frame 0, which is exact and immediate. Segments
+   auto-advance, so uninterrupted playback still reads as one continuous take.
+
+   Nothing plays until EVERY clip in the group reports canplaythrough. Starting the two wipe
+   layers before both are buffered is what produces mismatched frames and a visible stall, so
+   the gate is deliberate and covers the whole group at once.
+
+   Cut points, labels and durations all come from static/data/segments.json, written by
+   build_assets.py when it cuts the clips -- markers and cuts cannot drift apart. */
+function buildSegPlayer(host, data) {
+  var segs = data.segments;
+  var wrap = document.createElement('div');
+  wrap.className = 'segstack';
+  var vids = [];
+
+  // --x lives on the STACK, not on each pane. The segments are cuts of one take, so the
+  // divider has to be one divider: set per pane, dragging segment 1 and then jumping to
+  // segment 2 snapped the split back to the golden section, which reads as a glitch.
+  // Custom properties inherit, so every pane resolves var(--x) from here.
+  wrap.style.setProperty('--x', GOLDEN + '%');
+
+  segs.forEach(function (sg, i) {
+    var pane = document.createElement('div');
+    pane.className = 'wipe wide segpane' + (i === 0 ? ' on' : '');
+    pane.innerHTML =
+      '<video class="base" src="' + sg.pose + '" muted playsinline preload="auto"></video>' +
+      '<video class="top" src="' + sg.rgb + '" poster="' + sg.poster +
+        '" muted playsinline preload="auto"></video>' +
+      '<div class="bar"><div class="grip"></div></div>' +
+      '<div class="tag l">RGB &mdash; generated</div>' +
+      '<div class="tag r">pose &mdash; computed</div>';
+    wrap.appendChild(pane);
+    Array.prototype.push.apply(vids, Array.prototype.slice.call(pane.querySelectorAll('video')));
+  });
+
+  var tl = document.createElement('div');
+  tl.className = 'timeline';
+  var html = '<div class="tlline"><div class="tlprog"></div></div>';
+  segs.forEach(function (sg) {
+    html += '<button class="mark' + (sg.i === 0 ? ' on' : '') + '" data-i="' + sg.i +
+            '" data-t="' + sg.t0 + '" style="left:' + ((sg.t0 / data.dur) * 100) +
+            '%"><span class="mdot"></span><span class="mlab">' + sg.lab + '</span>' +
+            '<span class="msub">' + sg.sub + '</span>' +
+            '<span class="mt">' + sg.t0.toFixed(1) + ' s</span></button>';
+  });
+  tl.innerHTML = html;
+
+  var gate = document.createElement('div');
+  gate.className = 'segready';
+  gate.textContent = 'buffering ' + vids.length + ' clips\u2026';
+
+  host.appendChild(wrap); host.appendChild(gate); host.appendChild(tl);
+
+  var panes = Array.prototype.slice.call(wrap.querySelectorAll('.segpane'));
+  var btns = Array.prototype.slice.call(tl.querySelectorAll('.mark'));
+  var prog = tl.querySelector('.tlprog');
+  var cur = 0, ready = false;
+
+  function show(i, play) {
+    cur = i;
+    panes.forEach(function (p, k) {
+      p.classList.toggle('on', k === i);
+      if (k !== i) {
+        p.querySelectorAll('video').forEach(function (v) { v.pause(); v.currentTime = 0; });
+      }
+    });
+    btns.forEach(function (b, k) { b.classList.toggle('on', k === i); });
+    var vs = panes[i].querySelectorAll('video');
+    vs.forEach(function (v) { v.currentTime = 0; });
+    if (play && ready) vs.forEach(function (v) { v.play().catch(function () {}); });
+  }
+
+  btns.forEach(function (b) {
+    b.addEventListener('click', function () { show(+b.dataset.i, true); });
+  });
+
+  panes.forEach(function (p, i) {
+    var vs = p.querySelectorAll('video');
+    var base = vs[0], lead = vs[1];
+    lead.addEventListener('timeupdate', function () {
+      if (i !== cur) return;
+      // progress spans the WHOLE demo so the bar still reads as one timeline
+      prog.style.width = (((segs[i].t0 + lead.currentTime) / data.dur) * 100).toFixed(2) + '%';
+      if (!base.paused && Math.abs(base.currentTime - lead.currentTime) > 0.15) {
+        base.currentTime = lead.currentTime;
+      }
+    });
+    lead.addEventListener('ended', function () {
+      if (i === cur) show(i + 1 < panes.length ? i + 1 : 0, true);
+    });
+  });
+
+  var left = vids.length;
+  vids.forEach(function (v) {
+    var done = false;
+    function arrived() {
+      if (done) return;
+      done = true; left -= 1;
+      gate.textContent = 'buffering ' + left + ' more\u2026';
+      if (left <= 0) {
+        ready = true;
+        if (gate.parentNode) gate.parentNode.removeChild(gate);
+        host.classList.add('ready');
+        show(0, true);
+      }
+    }
+    if (v.readyState >= 4) arrived();
+    else {
+      v.addEventListener('canplaythrough', arrived, { once: true });
+      v.addEventListener('error', arrived, { once: true });   // never hang the gate
+    }
+    v.load();
+  });
+  // all panes drag ONE divider, stored on the stack they share
+  wireWipes(panes, wrap);
+  return { show: show, panes: panes, btns: btns, vids: vids, wrap: wrap,
+           isReady: function () { return ready; } };
+}
+
+var SEGPLAYERS = {};
+fetch('static/data/segments.json').then(function (r) { return r.json(); }).then(function (d) {
+  document.querySelectorAll('.segplayer').forEach(function (host) {
+    if (d[host.dataset.group]) {
+      SEGPLAYERS[host.dataset.group] = buildSegPlayer(host, d[host.dataset.group]);
+    }
+  });
+  // NOT wired here: buildSegPlayer wires its own panes against their shared stack, so the
+  // divider is one divider per demo. Wiring them again from outside would write --x to the
+  // individual panes and reintroduce the per-segment split.
+}).catch(function (e) { if (window.console) console.error('segments.json failed', e); });
+
+/* ================= insight axis: open one node full width =================
+   Opening a node hides all four cards, leaving their dots on the track as position markers,
+   and fills a single full-width panel underneath. The prose and the figure are cloned out of
+   the node itself, so no sentence exists twice in the source.
+
+   Three of the four figures are hotlinked from the systems they describe, which is fragile by
+   nature -- those hosts can add hotlink protection or move a file whenever they like, and two
+   of the sites already refuse plain fetches. A failed image removes itself and leaves its
+   caption and source link standing, rather than putting a broken-image box on the page. */
+(function () {
+  var axis = document.querySelector('.axis');
+  var panel = document.getElementById('axdetail');
+  if (!axis || !panel) return;
+  var marks = document.getElementById('axdMarks');
+  var title = document.getElementById('axdTitle');
+  var text  = document.getElementById('axdText');
+  var fig   = document.getElementById('axdFig');
+  var nodes = Array.prototype.slice.call(document.querySelectorAll('.axnodes .ax'));
+
+  function close() {
+    axis.classList.remove('expanded');
+    panel.hidden = true;
+    nodes.forEach(function (n) {
+      n.classList.remove('active');
+      var b = n.querySelector('.card');
+      if (b) b.setAttribute('aria-expanded', 'false');
+    });
+  }
+
+  function open(n) {
+    nodes.forEach(function (o) {
+      o.classList.toggle('active', o === n);
+      var b = o.querySelector('.card');
+      if (b) b.setAttribute('aria-expanded', o === n ? 'true' : 'false');
+    });
+    marks.innerHTML = n.querySelector('.marks').innerHTML;
+    title.innerHTML = n.querySelector('h3').innerHTML;
+    text.innerHTML  = n.querySelector('.full').innerHTML;
+    var f = n.querySelector('.axfig');
+    fig.innerHTML = f ? f.innerHTML : '';
+    // the clone is a fresh <img>, so the error handler has to be attached to the clone
+    var img = fig.querySelector('img');
+    if (img) {
+      img.addEventListener('error', function () {
+        img.style.display = 'none';
+        fig.classList.add('nofig');
+      });
+      // a cached error fires before this runs; complete && !naturalWidth catches that
+      if (img.complete && !img.naturalWidth) { img.style.display = 'none'; fig.classList.add('nofig'); }
+    } else {
+      fig.classList.add('nofig');
+    }
+    axis.classList.add('expanded');
+    panel.hidden = false;
+  }
+
+  nodes.forEach(function (n) {
+    var btn = n.querySelector('.card');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      if (n.classList.contains('active')) close(); else open(n);
+    });
+  });
+  document.getElementById('axdClose').addEventListener('click', close);
+  // while a node is open its dot is the only handle left, so make the dots clickable too
+  nodes.forEach(function (n) {
+    var d = n.querySelector('.dot');
+    if (d) d.addEventListener('click', function () {
+      if (n.classList.contains('active')) close(); else open(n);
+    });
+  });
+})();
+
+/* ================= four systems, one schedule =================
+   Order is fixed and meaningful: ours first, then the baseline trained on our own data, then
+   the two commercial systems. Each clip loops and only starts once it scrolls into view, like
+   the gallery. Captions state what each system was actually given, since that is the whole
+   comparison -- a token stream against a sentence. */
+var CMP = [
+  ['cmp_ours',     'Marionette (ours)',   'free rollout &middot; predicted state, computed geometry', 'ok'],
+  ['cmp_pixelar',  'Pixel-AR baseline',   'free rollout &middot; our data, our conditioning', 'no'],
+  ['cmp_seedance', 'Seedance 2.0',        'free prompt &middot; commercial', 'no'],
+  ['cmp_grok',     'Grok Imagine 1.5',    'free prompt &middot; commercial', 'no']
+];
+var cmpgrid = document.getElementById('cmpgrid');
+if (cmpgrid) {
+  CMP.forEach(function (c) {
+    var d = document.createElement('figure');
+    d.className = 'cmpitem';
+    d.innerHTML =
+      '<video src="static/videos/' + c[0] + '.mp4" poster="static/images/' + c[0] +
+        '_poster.jpg" muted loop playsinline preload="none"></video>' +
+      '<figcaption><span class="cn">' + c[1] + '</span>' +
+      '<span class="cs ' + c[3] + '">' + c[2] + '</span></figcaption>';
+    cmpgrid.appendChild(d);
+  });
+}
+
+/* ================= wipe comparisons ================= */
+var SAMPLES = [
+  ['s01', 'Sandy basin, monster centre frame'],
+  ['s02', 'Open sand, monster broadside'],
+  ['s03', 'Rock shelf, hunter closing in'],
+  ['s04', 'Low sun, monster in profile'],
+  ['s05', 'Monster foreground, hunter behind'],
+  ['s06', 'Crystal cave']
+];
+
+var gallery = document.getElementById('gallery');
+SAMPLES.forEach(function (s) {
+  var d = document.createElement('div');
+  d.className = 'wipe';
+  d.style.setProperty('--x', GOLDEN + '%');
+  d.innerHTML =
+    '<video class="base" src="static/videos/' + s[0] + '_pose.mp4" muted loop playsinline preload="none"></video>' +
+    '<video class="top" src="static/videos/' + s[0] + '_rgb.mp4" poster="static/images/' + s[0] +
+      '_rgb_poster.jpg" muted loop playsinline preload="none"></video>' +
+    '<div class="bar"><div class="grip"></div></div>' +
+    '<div class="tag l">RGB &mdash; generated</div>' +
+    '<div class="tag r">pose &mdash; computed</div>';
+  gallery.appendChild(d);
+});
+
+/* shared: optional element the divider position is written to instead of the wipe itself.
+   Passing the enclosing stack makes a group of segments share one divider (they are cuts
+   of a single take). The RECT still comes from the wipe under the pointer, which is what
+   maps the pointer to a percentage; only the write target moves. */
+function wireWipes(list, shared) {
+  list.forEach(function (w) {
+  var target = shared || w;
+  function setFrom(clientX) {
+    var r = w.getBoundingClientRect();
+    target.style.setProperty('--x', Math.max(0, Math.min(100, ((clientX - r.left) / r.width) * 100)) + '%');
+  }
+  var dragging = false;
+  w.addEventListener('pointerdown', function (e) {
+    dragging = true; w.setPointerCapture(e.pointerId); setFrom(e.clientX); e.preventDefault();
+  });
+  w.addEventListener('pointermove', function (e) { if (dragging) setFrom(e.clientX); });
+  ['pointerup', 'pointercancel'].forEach(function (t) {
+    w.addEventListener(t, function (e) {
+      dragging = false; try { w.releasePointerCapture(e.pointerId); } catch (_) {}
+    });
+  });
+  // keep the two layers frame-locked
+  var vids = w.querySelectorAll('video');
+  if (vids.length === 2) {
+    vids[1].addEventListener('timeupdate', function () {
+      if (!vids[0].paused && Math.abs(vids[0].currentTime - vids[1].currentTime) > 0.2) {
+        vids[0].currentTime = vids[1].currentTime;
+      }
+    });
+  }
+  });
+}
+wireWipes(document.querySelectorAll('#gallery .wipe, #gridWipe'));
+
+/* Hero film. The bed loops silently; clicking swaps in the real film with sound. The iframe
+   is built here rather than sitting in the markup so that a reader who never clicks never
+   touches youtube.com. */
+(function () {
+  var film = document.getElementById('film');
+  var bed = document.getElementById('filmbed');
+  var btn = document.getElementById('filmplay');
+  if (!film || !btn) return;
+
+  // CSS hides the bed under reduced-motion, but a hidden autoplaying element still decodes.
+  var still = window.matchMedia('(prefers-reduced-motion: reduce)');
+  function honour() { if (bed) { if (still.matches) bed.pause(); else bed.play().catch(function () {}); } }
+  honour();
+  if (still.addEventListener) still.addEventListener('change', honour);
+
+  btn.addEventListener('click', function () {
+    if (bed) { bed.pause(); bed.removeAttribute('src'); bed.load(); }
+    var f = document.createElement('iframe');
+    f.src = 'https://www.youtube-nocookie.com/embed/bLLtwXVcqEc?autoplay=1&rel=0&modestbranding=1';
+    f.title = 'Marionette overview video';
+    f.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture';
+    f.allowFullscreen = true;
+    film.appendChild(f);
+    film.classList.add('playing');
+  });
+})();
+
+if ('IntersectionObserver' in window) {
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      en.target.querySelectorAll('video').forEach(function (v) {
+        if (en.isIntersecting) {
+          if (v.preload === 'none') v.preload = 'auto';
+          v.play().catch(function () {});
+        } else { v.pause(); }
+      });
+    });
+  }, { rootMargin: '140px 0px', threshold: 0.25 });
+  document.querySelectorAll('.wipe, .cmpitem').forEach(function (w) { io.observe(w); });
+}
+</script>
+</body>
+</html>
